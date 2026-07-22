@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.whl
+
+# Entornos virtuales
+venv/
+env/
+ENV/
+.venv/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.benchmarks/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Logs y reportes
+*.log
+bandit_report.txt
+reporte.md
+reporte.txt
+
+# Archivos temporales de sistema
+Thumbs.db
+CACHEDIR.TAG
+
+# Proyectos externos o carpetas accidentales
+SecOpsTM/
+SecOpsTM.egg-info/
+threatModel_Template/
+
+# Rutas locales
+C:/
+Users/
