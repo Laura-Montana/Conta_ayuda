@@ -40,7 +40,7 @@ class TestValidacionDatos:
         with pytest.raises(Exception) as exc_info:
             validate_and_parse(content, "vacio.csv")
         
-        assert "vacío" in str(exc_info.value).lower() or "empty" in str(exc_info.value).lower()
+        assert "no se pudo leer" in str(exc_info.value).lower() or "archivo_ilegible" in str(exc_info.value).lower()
     
     def test_missing_required_columns_rejected(self, sample_csv_missing_columns):
         """Verifica que archivos sin columnas obligatorias sean rechazados"""

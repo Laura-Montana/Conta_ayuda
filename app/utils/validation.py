@@ -8,7 +8,7 @@ import io
 import json
 import pandas as pd
 from fastapi import HTTPException
-
+import unicodedata  # Agregar al inicio del archivo
 
 # Campos mínimos requeridos según RF-01
 REQUIRED_COLUMNS = {"fecha", "monto", "categoria"}
@@ -22,6 +22,12 @@ DATE_FORMATS = [
     "%d/%m/%y",
 ]
 
+def _normalize_column_name(col: str) -> str:
+    """Convierte a minúsculas, elimina espacios y reemplaza tildes."""
+    col = col.strip().lower()
+    # Eliminar tildes (normalizar a ASCII)
+    col = unicodedata.normalize('NFKD', col).encode('ascii', 'ignore').decode('ascii')
+    return col
 
 def _try_parse_date(series: pd.Series) -> pd.Series:
     """Intenta parsear una columna de fechas probando varios formatos."""
@@ -96,7 +102,7 @@ def validate_and_parse(content: bytes, filename: str) -> pd.DataFrame:
         )
 
     # ── RF-02: normalizar nombres de columnas (minúsculas, sin espacios) ──────
-    df.columns = [c.strip().lower() for c in df.columns]
+    df.columns = [_normalize_column_name(c) for c in df.columns]
 
     # ── RF-02: columnas requeridas ────────────────────────────────────────────
     missing = REQUIRED_COLUMNS - set(df.columns)
